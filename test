@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Texto</title>
+</head>
+<body>
+    <form id="formulario">
+        <label for="texto">Introduce tu texto:</label>
+        <input type="text" id="texto" name="texto">
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById('formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const texto = document.getElementById('texto').value;
+            enviarTexto(texto);
+        });
+
+        async function enviarTexto(texto) {
+            const url = 'https://script.google.com/macros/s/AKfycbyp_LtBN5jFn69OYwkoEcSDTSWuD4aDQAnQkS5_nttWcGOfvGlMrOdCruBC2r1vN-9f1A/exec';
+            const params = new URLSearchParams({ 'texto': texto });
+            try {
+                const response = await fetch(`${url}?${params}`);
+                if (response.ok) {
+                    alert('Texto enviado correctamente.');
+                } else {
+                    alert('Ha ocurrido un error al enviar el texto.');
+                }
+            } catch (error) {
+                console.error('Error al enviar el texto:', error);
+                alert('Ha ocurrido un error al enviar el texto.');
+            }
+        }
+    </script>
+</body>
+</html>
